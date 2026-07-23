@@ -352,24 +352,25 @@ platform permits, validate messages, bind sessions to their owners, and remove
 sessions when clients die. Timeouts should produce an observable failure and
 native fallback rather than an indefinitely blank controller.
 
-## Smallest next implementation slice
+## Implemented client-boundary slice
 
-The next checkpoint should establish a contract boundary without touching
-Gecko startup or remote rendering:
+The first implementation checkpoint establishes a contract boundary without
+touching Gecko startup or remote rendering:
 
-1. Add an Objective-C `ReynardProtocol` static-library target under
+1. An Objective-C `ReynardProtocol` static-library target lives under
    `browser/ReynardProtocol`.
-2. Define protocol version constants, an opaque session identifier, a minimal
+2. It defines protocol version constants, an opaque session identifier, a minimal
    open-session request, stable errors, and client/host lifecycle interfaces.
-3. Add the smallest `ReynardServices` framework target under
+3. A Foundation-only `ReynardServices` framework target lives under
    `browser/ReynardServices` with an internal host-connecting interface that can
    be supplied by a mock.
-4. Prove that the `ReynardServices` scheme builds with the Firefox and idevice
-   submodules uninitialized.
-5. Add a dependency audit that fails if the framework links Gecko/XUL or imports
-   Gecko headers.
+4. The explicit `ReynardServices` scheme builds and tests with the Firefox and
+   idevice submodules uninitialized.
+5. `tools/ci/verify-client-boundary.sh` fails if the framework imports or links
+   Gecko/XUL and confirms that verification does not change submodule state.
 
-This slice should not yet add `ReynardHost.app`, remote surfaces, Safari hooks,
+The hostless boundary tests pass on iOS 15.2 and iOS 18.1 Simulators. This slice
+does not add `ReynardHost.app`, remote surfaces, Safari hooks,
 profile management, packaging, or broad UI facades. Its value is making the
 critical dependency invariant executable before more code depends on it.
 
