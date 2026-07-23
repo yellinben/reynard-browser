@@ -374,16 +374,61 @@ does not add `ReynardHost.app`, remote surfaces, Safari hooks,
 profile management, packaging, or broad UI facades. Its value is making the
 critical dependency invariant executable before more code depends on it.
 
+## Stage 1 transport prototype
+
+The first host-transport experiment uses a named `CFMessagePort` bridged across
+application sandboxes by RocketBootstrap. This choice is deliberately narrower
+than adopting a private application XPC service: it provides deterministic
+request/reply behavior without introducing a launch daemon or moving Gecko out
+of the existing application.
+
+The current prototype has these fixed points:
+
+- `in.benyell.reynard.runtime.stage1` is the service name.
+- Message identifiers `1`, `2`, and `3` negotiate the protocol, open a logical
+  session, and close it. Payloads are binary property lists containing scalar
+  values or secure archives of `ReynardProtocol` objects.
+- `ReynardServices` dynamically resolves
+  `rocketbootstrap_cfmessageportcreateremote`; `Reynard.app` dynamically
+  resolves `rocketbootstrap_cfmessageportexposelocal`. This follows the
+  [RocketBootstrap API](https://github.com/rpetrich/RocketBootstrap/blob/master/rocketbootstrap.h)
+  without adding a build-time link that would break Simulator development or
+  the Gecko-free client audit.
+- If the service is absent, the client asks UIKit at runtime to open
+  `reynard://runtime-host`, then retries discovery for a bounded interval. The
+  framework still has no UIKit import or link dependency. Foregrounding the
+  browser is an acknowledged Stage 1 limitation, not the final activation
+  model.
+- `Reynard.app` starts the port from its existing application delegate. The
+  host validates the wire envelope and URL, negotiates the highest compatible
+  version, and tracks opaque logical session identifiers.
+
+This checkpoint does **not** create a Gecko session, remote view, surface, or
+input channel. It also does not yet deliver host-initiated lifecycle events:
+`CFMessagePort` is used only for request/reply, while disconnect detection and
+server-to-client signaling still need device-driven design. Simulator tests
+cover the concrete client encoder/decoder through an injected transport; only a
+jailbroken-device test can validate RocketBootstrap exposure and launch
+behavior across two real sandboxes.
+
+The runtime package will eventually need an explicit rootless RocketBootstrap
+dependency or an equivalent system-wide Mach registration facility. This
+prototype intentionally adds no Theos packaging and does not hardcode a
+rootless prefix.
+
 ## Deferred decisions
 
 The following decisions require prototypes or device evidence and are not
 settled by this document:
 
-- XPC/Mach transport and host activation mechanism on the supported jailbreak.
 - Private remote-view-controller versus manual surface transport.
 - Exact protocol serialization and compatibility policy beyond the first
   version constants.
-- Host background-lifetime and relaunch behavior during Stage 1.
+- Whether the request/reply prototype remains `CFMessagePort`-based after
+  client authentication, disconnect notification, and push events are added.
+- Host background lifetime, non-foreground activation, and relaunch behavior
+  during Stage 1.
+- RocketBootstrap/rootless deployment validation on supported devices.
 - Per-application profile identifiers and data-retention controls.
 - Minimum entitlement set for the final host and helper.
 - How the standalone browser transitions to `ReynardServices` after host

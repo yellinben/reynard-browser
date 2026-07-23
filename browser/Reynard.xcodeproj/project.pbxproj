@@ -13,8 +13,8 @@
 		02WCPBF12F3000000000001 /* Reynard Helper.appex in Embed Process Extensions */ = {isa = PBXBuildFile; fileRef = 02WCPAPP2F3000000000001 /* Reynard Helper.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03OLPBF12F3100000000001 /* OpenIn.appex in Embed Process Extensions */ = {isa = PBXBuildFile; fileRef = 03OLAPP2F3100000000001 /* OpenIn.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		05RNSPBF12F32000000000001 /* libReynardProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04RNRPROD2F32000000000001 /* libReynardProtocol.a */; };
-		06RNTPBF12F32000000000001 /* libReynardProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04RNRPROD2F32000000000001 /* libReynardProtocol.a */; };
 		06RNTSBF12F32000000000001 /* ReynardServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05RNSPROD2F32000000000001 /* ReynardServices.framework */; };
+		07RNHBF12F33000000000001 /* libReynardProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04RNRPROD2F32000000000001 /* libReynardProtocol.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +66,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 05RNSTGT12F32000000000001;
 			remoteInfo = ReynardServices;
+		};
+		07RNHPRX2F33000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 018C67962F2F289C001F0BBB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04RNRTGT12F32000000000001;
+			remoteInfo = ReynardProtocol;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -161,6 +168,7 @@
 				RNROpenSessionRequest.h,
 				RNRProtocolError.h,
 				RNRProtocolVersion.h,
+				RNRRuntimeWire.h,
 				RNRSessionIdentifier.h,
 				ReynardProtocol.h,
 			);
@@ -239,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01GECKO0012F2F289C001F0001 /* GeckoView.framework in Frameworks */,
+				07RNHBF12F33000000000001 /* libReynardProtocol.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +292,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06RNTPBF12F32000000000001 /* libReynardProtocol.a in Frameworks */,
 				06RNTSBF12F32000000000001 /* ReynardServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +380,7 @@
 				01GECKO00B2F2F289C001F0001 /* PBXTargetDependency */,
 				02WCPDEP2F3000000000001 /* PBXTargetDependency */,
 				03OLDEP2F3100000000001 /* PBXTargetDependency */,
+				07RNHDEP2F33000000000001 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				018C67A02F2F289C001F0BBB /* Reynard */,
@@ -735,6 +744,11 @@
 			isa = PBXTargetDependency;
 			target = 05RNSTGT12F32000000000001 /* ReynardServices */;
 			targetProxy = 06RNTSPRX2F32000000000001 /* PBXContainerItemProxy */;
+		};
+		07RNHDEP2F33000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04RNRTGT12F32000000000001 /* ReynardProtocol */;
+			targetProxy = 07RNHPRX2F33000000000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1354,7 +1368,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = "$(CURRENT_VERSION)";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-force_load $(BUILT_PRODUCTS_DIR)/libReynardProtocol.a";
 				PRODUCT_BUNDLE_IDENTIFIER = in.benyell.ReynardServices;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1389,7 +1403,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = "$(CURRENT_VERSION)";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-force_load $(BUILT_PRODUCTS_DIR)/libReynardProtocol.a";
 				PRODUCT_BUNDLE_IDENTIFIER = in.benyell.ReynardServices;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

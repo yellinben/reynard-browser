@@ -11,4 +11,5 @@ FOUNDATION_EXPORT const unsigned char ReynardProtocolVersionString[];
 #import "RNROpenSessionRequest.h"
 #import "RNRProtocolError.h"
 #import "RNRProtocolVersion.h"
+#import "RNRRuntimeWire.h"
 #import "RNRSessionIdentifier.h"
