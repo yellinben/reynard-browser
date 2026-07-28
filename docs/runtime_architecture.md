@@ -390,10 +390,11 @@ The current prototype has these fixed points:
   values or secure archives of `ReynardProtocol` objects.
 - `ReynardServices` dynamically resolves
   `rocketbootstrap_cfmessageportcreateremote`; `Reynard.app` dynamically
-  resolves `rocketbootstrap_cfmessageportexposelocal`. This follows the
-  [RocketBootstrap API](https://github.com/rpetrich/RocketBootstrap/blob/master/rocketbootstrap.h)
-  without adding a build-time link that would break Simulator development or
-  the Gecko-free client audit.
+  resolves `rocketbootstrap_cfmessageportexposelocal`. This follows Lessica's
+  rootless iOS 15
+  [RocketBootstrap API](https://github.com/Lessica/RocketBootstrap/blob/v1.0.10beta5/rocketbootstrap.h)
+  and pointer-authentication-safe dynamic lookup without adding a build-time
+  link that would break Simulator development or the Gecko-free client audit.
 - If the service is absent, the client asks UIKit at runtime to open
   `reynard://runtime-host`, then retries discovery for a bounded interval. The
   framework still has no UIKit import or link dependency. Foregrounding the
@@ -411,10 +412,13 @@ cover the concrete client encoder/decoder through an injected transport; only a
 jailbroken-device test can validate RocketBootstrap exposure and launch
 behavior across two real sandboxes.
 
-The runtime package will eventually need an explicit rootless RocketBootstrap
-dependency or an equivalent system-wide Mach registration facility. This
-prototype intentionally adds no Theos packaging and does not hardcode a
-rootless prefix.
+The Stage 1 device baseline is Lessica/RocketBootstrap `v1.0.10beta5`, commit
+`8213bbb1202a6bc8fa4ca1fd9f1c8d291057931f`, whose Debian package version is
+`1.0.10~beta5`. A newer maintained release may supersede it only after the same
+symbol and cross-sandbox smoke checks are rerun. The runtime package will
+eventually need an explicit rootless dependency on that validated package (or
+an equivalent system-wide Mach registration facility). This prototype
+intentionally adds no Theos packaging and does not hardcode a rootless prefix.
 
 ## Deferred decisions
 

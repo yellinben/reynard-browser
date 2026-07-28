@@ -4,6 +4,9 @@
 #import <dlfcn.h>
 #import <mach/kern_return.h>
 #import <os/log.h>
+#if __has_include(<ptrauth.h>)
+#import <ptrauth.h>
+#endif
 #import <ReynardProtocol/ReynardProtocol.h>
 #import <TargetConditionals.h>
 #import <unistd.h>
@@ -35,12 +38,27 @@ static const char *RNRHostOperationName(SInt32 messageIdentifier)
 }
 
 #if !TARGET_OS_SIMULATOR
+static void *RNRRocketBootstrapFunctionPointer(void *handle, const char *name)
+{
+    void *function = dlsym(handle, name);
+#if __has_include(<ptrauth.h>)
+    if (function) {
+        function = ptrauth_sign_unauthenticated(
+            ptrauth_strip(function, ptrauth_key_function_pointer),
+            ptrauth_key_function_pointer,
+            0
+        );
+    }
+#endif
+    return function;
+}
+
 static RNRExposeLocalMessagePortFunction RNRRocketBootstrapExposeFunction(void)
 {
     static RNRExposeLocalMessagePortFunction function;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        function = (RNRExposeLocalMessagePortFunction)dlsym(
+        function = (RNRExposeLocalMessagePortFunction)RNRRocketBootstrapFunctionPointer(
             RTLD_DEFAULT,
             "rocketbootstrap_cfmessageportexposelocal"
         );
@@ -53,7 +71,7 @@ static RNRExposeLocalMessagePortFunction RNRRocketBootstrapExposeFunction(void)
             handle = dlopen("/usr/lib/librocketbootstrap.dylib", RTLD_LAZY | RTLD_LOCAL);
         }
         if (handle) {
-            function = (RNRExposeLocalMessagePortFunction)dlsym(
+            function = (RNRExposeLocalMessagePortFunction)RNRRocketBootstrapFunctionPointer(
                 handle,
                 "rocketbootstrap_cfmessageportexposelocal"
             );

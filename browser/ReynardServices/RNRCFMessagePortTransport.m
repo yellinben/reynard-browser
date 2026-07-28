@@ -4,6 +4,9 @@
 #import <dlfcn.h>
 #import <objc/message.h>
 #import <os/log.h>
+#if __has_include(<ptrauth.h>)
+#import <ptrauth.h>
+#endif
 #import <TargetConditionals.h>
 #import <unistd.h>
 
@@ -24,12 +27,27 @@ static os_log_t RNRClientTransportLog(void)
 
 typedef CFMessagePortRef (*RNRCFMessagePortCreateRemoteFunction)(CFAllocatorRef, CFStringRef);
 
+static void *RNRRocketBootstrapFunctionPointer(void *handle, const char *name)
+{
+    void *function = dlsym(handle, name);
+#if __has_include(<ptrauth.h>)
+    if (function) {
+        function = ptrauth_sign_unauthenticated(
+            ptrauth_strip(function, ptrauth_key_function_pointer),
+            ptrauth_key_function_pointer,
+            0
+        );
+    }
+#endif
+    return function;
+}
+
 static RNRCFMessagePortCreateRemoteFunction RNRRocketBootstrapCreateRemoteFunction(void)
 {
     static RNRCFMessagePortCreateRemoteFunction function;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        function = (RNRCFMessagePortCreateRemoteFunction)dlsym(
+        function = (RNRCFMessagePortCreateRemoteFunction)RNRRocketBootstrapFunctionPointer(
             RTLD_DEFAULT,
             "rocketbootstrap_cfmessageportcreateremote"
         );
@@ -42,7 +60,7 @@ static RNRCFMessagePortCreateRemoteFunction RNRRocketBootstrapCreateRemoteFuncti
             handle = dlopen("/usr/lib/librocketbootstrap.dylib", RTLD_LAZY | RTLD_LOCAL);
         }
         if (handle) {
-            function = (RNRCFMessagePortCreateRemoteFunction)dlsym(
+            function = (RNRCFMessagePortCreateRemoteFunction)RNRRocketBootstrapFunctionPointer(
                 handle,
                 "rocketbootstrap_cfmessageportcreateremote"
             );
