@@ -5,6 +5,7 @@
 #import "RNRMockMessageTransport.h"
 #import "RNRCFMessagePortHostConnection.h"
 #import "RNRCFMessagePortTransport.h"
+#import "RNRIPCSmokeState.h"
 #import "RNRSessionCoordinator.h"
 
 static CFDataRef RNRTestMessagePortCallback(CFMessagePortRef local,
@@ -344,6 +345,61 @@ static CFDataRef RNRTestMessagePortCallback(CFMessagePortRef local,
 
     XCTAssertFalse(coordinator.isReady);
     XCTAssertEqual(coordinator.activeSessionIdentifiers.count, 0U);
+}
+
+- (void)testIPCSmokeStateRejectsOverlappingOperations
+{
+    RNRIPCSmokeState *state = [[RNRIPCSmokeState alloc] init];
+    XCTAssertTrue([state beginOperationNamed:@"open-http"]);
+    XCTAssertFalse([state beginOperationNamed:@"duplicate-open"]);
+
+    [state finishOperationWithDuration:0.125
+                     negotiatedVersion:RNRProtocolVersionCurrent
+                          sessionState:RNRIPCSmokeSessionStateActive
+                                 error:nil];
+
+    XCTAssertFalse(state.isBusy);
+    XCTAssertTrue([state beginOperationNamed:@"close-active"]);
+}
+
+- (void)testIPCSmokeResultFormattingRedactsErrorPayloadsAndSessionValues
+{
+    RNRIPCSmokeState *state = [[RNRIPCSmokeState alloc] init];
+    XCTAssertTrue([state beginOperationNamed:@"open-http"]);
+    NSError *error = [NSError errorWithDomain:RNRProtocolErrorDomain
+                                         code:RNRProtocolErrorHostUnavailable
+                                     userInfo:@{
+        NSLocalizedDescriptionKey: @"private payload https://private.example/ session-secret",
+    }];
+
+    [state finishOperationWithDuration:0.250
+                     negotiatedVersion:RNRProtocolVersionInvalid
+                          sessionState:RNRIPCSmokeSessionStateIndeterminate
+                                 error:error];
+
+    XCTAssertTrue([state.resultSummary containsString:@"duration_ms=250.0"]);
+    XCTAssertTrue([state.resultSummary containsString:@"error_domain=in.benyell.ReynardProtocol"]);
+    XCTAssertTrue([state.resultSummary containsString:@"error_code=4"]);
+    XCTAssertTrue([state.resultSummary containsString:@"session_state=indeterminate"]);
+    XCTAssertFalse([state.resultSummary containsString:@"private.example"]);
+    XCTAssertFalse([state.resultSummary containsString:@"session-secret"]);
+}
+
+- (void)testIPCSmokeResetRequiresFreshNegotiation
+{
+    RNRIPCSmokeState *state = [[RNRIPCSmokeState alloc] init];
+    XCTAssertTrue([state beginOperationNamed:@"negotiate-compatible"]);
+    [state finishOperationWithDuration:0
+                     negotiatedVersion:RNRProtocolVersionCurrent
+                          sessionState:RNRIPCSmokeSessionStateNone
+                                 error:nil];
+    XCTAssertEqual(state.negotiatedVersion, RNRProtocolVersionCurrent);
+
+    [state reset];
+
+    XCTAssertEqual(state.negotiatedVersion, RNRProtocolVersionInvalid);
+    XCTAssertEqual(state.sessionState, RNRIPCSmokeSessionStateNone);
+    XCTAssertFalse(state.isBusy);
 }
 
 @end

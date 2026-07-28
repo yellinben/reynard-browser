@@ -15,6 +15,13 @@
 		05RNSPBF12F32000000000001 /* libReynardProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04RNRPROD2F32000000000001 /* libReynardProtocol.a */; };
 		06RNTSBF12F32000000000001 /* ReynardServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05RNSPROD2F32000000000001 /* ReynardServices.framework */; };
 		07RNHBF12F33000000000001 /* libReynardProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04RNRPROD2F32000000000001 /* libReynardProtocol.a */; };
+		08RNIBLD2F34000000000001 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 08RNIFIL2F34000000000001 /* main.m */; };
+		08RNIBLD2F34000000000002 /* RNRIPCSmokeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08RNIFIL2F34000000000003 /* RNRIPCSmokeAppDelegate.m */; };
+		08RNIBLD2F34000000000003 /* RNRIPCSmokeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 08RNIFIL2F34000000000005 /* RNRIPCSmokeState.m */; };
+		08RNIBLD2F34000000000004 /* RNRIPCSmokeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08RNIFIL2F34000000000007 /* RNRIPCSmokeViewController.m */; };
+		08RNIBLD2F34000000000005 /* ReynardServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05RNSPROD2F32000000000001 /* ReynardServices.framework */; };
+		08RNIBLD2F34000000000006 /* ReynardServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05RNSPROD2F32000000000001 /* ReynardServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		08RNIBLD2F34000000000007 /* RNRIPCSmokeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 08RNIFIL2F34000000000005 /* RNRIPCSmokeState.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +81,20 @@
 			remoteGlobalIDString = 04RNRTGT12F32000000000001;
 			remoteInfo = ReynardProtocol;
 		};
+		08RNIPRX2F34000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 018C67962F2F289C001F0BBB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05RNSTGT12F32000000000001;
+			remoteInfo = ReynardServices;
+		};
+		08RNIPRX2F34000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 018C67962F2F289C001F0BBB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04RNRTGT12F32000000000001;
+			remoteInfo = ReynardProtocol;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -100,6 +121,17 @@
 			name = "Embed Process Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		08RNIEMB2F34000000000001 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				08RNIBLD2F34000000000006 /* ReynardServices.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +143,14 @@
 		04RNRPROD2F32000000000001 /* libReynardProtocol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReynardProtocol.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		05RNSPROD2F32000000000001 /* ReynardServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReynardServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06RNTPROD2F32000000000001 /* ReynardServicesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReynardServicesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08RNIPRD2F34000000000001 /* ReynardIPCSmoke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReynardIPCSmoke.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08RNIFIL2F34000000000001 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000002 /* RNRIPCSmokeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRIPCSmokeAppDelegate.h; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000003 /* RNRIPCSmokeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRIPCSmokeAppDelegate.m; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000004 /* RNRIPCSmokeState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRIPCSmokeState.h; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000005 /* RNRIPCSmokeState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRIPCSmokeState.m; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000006 /* RNRIPCSmokeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNRIPCSmokeViewController.h; sourceTree = "<group>"; };
+		08RNIFIL2F34000000000007 /* RNRIPCSmokeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNRIPCSmokeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -296,6 +336,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		08RNIFRM2F34000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08RNIBLD2F34000000000005 /* ReynardServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -310,6 +358,7 @@
 				04RNRGRP12F32000000000001 /* ReynardProtocol */,
 				05RNSGRP12F32000000000001 /* ReynardServices */,
 				06RNTGRP12F32000000000001 /* ReynardServicesTests */,
+				08RNIGRP2F34000000000001 /* ReynardIPCSmoke */,
 				018C679F2F2F289C001F0BBB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -324,6 +373,7 @@
 				04RNRPROD2F32000000000001 /* libReynardProtocol.a */,
 				05RNSPROD2F32000000000001 /* ReynardServices.framework */,
 				06RNTPROD2F32000000000001 /* ReynardServicesTests.xctest */,
+				08RNIPRD2F34000000000001 /* ReynardIPCSmoke.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -334,6 +384,20 @@
 				01GECKO0052F2F289C001F0001 /* Reynard.xcconfig */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		08RNIGRP2F34000000000001 /* ReynardIPCSmoke */ = {
+			isa = PBXGroup;
+			children = (
+				08RNIFIL2F34000000000001 /* main.m */,
+				08RNIFIL2F34000000000002 /* RNRIPCSmokeAppDelegate.h */,
+				08RNIFIL2F34000000000003 /* RNRIPCSmokeAppDelegate.m */,
+				08RNIFIL2F34000000000004 /* RNRIPCSmokeState.h */,
+				08RNIFIL2F34000000000005 /* RNRIPCSmokeState.m */,
+				08RNIFIL2F34000000000006 /* RNRIPCSmokeViewController.h */,
+				08RNIFIL2F34000000000007 /* RNRIPCSmokeViewController.m */,
+			);
+			path = ReynardIPCSmoke;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -527,6 +591,28 @@
 			productReference = 06RNTPROD2F32000000000001 /* ReynardServicesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		08RNITGT2F34000000000001 /* ReynardIPCSmoke */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08RNICFG2F34000000000001 /* Build configuration list for PBXNativeTarget "ReynardIPCSmoke" */;
+			buildPhases = (
+				08RNISRC2F34000000000001 /* Sources */,
+				08RNIFRM2F34000000000001 /* Frameworks */,
+				08RNIRES2F34000000000001 /* Resources */,
+				08RNIEMB2F34000000000001 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08RNIDEP2F34000000000001 /* PBXTargetDependency */,
+				08RNIDEP2F34000000000002 /* PBXTargetDependency */,
+			);
+			name = ReynardIPCSmoke;
+			packageProductDependencies = (
+			);
+			productName = ReynardIPCSmoke;
+			productReference = 08RNIPRD2F34000000000001 /* ReynardIPCSmoke.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -558,6 +644,9 @@
 					06RNTTGT12F32000000000001 = {
 						CreatedOnToolsVersion = 26.2;
 					};
+					08RNITGT2F34000000000001 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = 018C67992F2F289C001F0BBB /* Build configuration list for PBXProject "Reynard" */;
@@ -583,6 +672,7 @@
 				04RNRTGT12F32000000000001 /* ReynardProtocol */,
 				05RNSTGT12F32000000000001 /* ReynardServices */,
 				06RNTTGT12F32000000000001 /* ReynardServicesTests */,
+				08RNITGT2F34000000000001 /* ReynardIPCSmoke */,
 			);
 		};
 /* End PBXProject section */
@@ -631,6 +721,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		06RNTRES12F32000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08RNIRES2F34000000000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -704,6 +801,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08RNIBLD2F34000000000007 /* RNRIPCSmokeState.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08RNISRC2F34000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08RNIBLD2F34000000000001 /* main.m in Sources */,
+				08RNIBLD2F34000000000002 /* RNRIPCSmokeAppDelegate.m in Sources */,
+				08RNIBLD2F34000000000003 /* RNRIPCSmokeState.m in Sources */,
+				08RNIBLD2F34000000000004 /* RNRIPCSmokeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +858,16 @@
 			isa = PBXTargetDependency;
 			target = 04RNRTGT12F32000000000001 /* ReynardProtocol */;
 			targetProxy = 07RNHPRX2F33000000000001 /* PBXContainerItemProxy */;
+		};
+		08RNIDEP2F34000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05RNSTGT12F32000000000001 /* ReynardServices */;
+			targetProxy = 08RNIPRX2F34000000000001 /* PBXContainerItemProxy */;
+		};
+		08RNIDEP2F34000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04RNRTGT12F32000000000001 /* ReynardProtocol */;
+			targetProxy = 08RNIPRX2F34000000000002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1426,7 +1545,10 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/ReynardServices";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/ReynardServices",
+					"$(SRCROOT)/ReynardIPCSmoke",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
@@ -1457,7 +1579,10 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/ReynardServices";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/ReynardServices",
+					"$(SRCROOT)/ReynardIPCSmoke",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
@@ -1473,6 +1598,87 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "";
+			};
+			name = Release;
+		};
+		08RNIDBG2F34000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01GECKO0052F2F289C001F0001 /* Reynard.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD)";
+				DEVELOPMENT_TEAM = NAR5D6HWAD;
+				ENABLE_DEBUG_DYLIB = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/ReynardServices";
+				INFOPLIST_KEY_CFBundleDisplayName = "Reynard IPC Smoke";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = "$(CURRENT_VERSION)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = in.benyell.ReynardIPCSmoke;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		08RNIREL2F34000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01GECKO0052F2F289C001F0001 /* Reynard.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(CURRENT_BUILD)";
+				DEVELOPMENT_TEAM = NAR5D6HWAD;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/ReynardServices";
+				INFOPLIST_KEY_CFBundleDisplayName = "Reynard IPC Smoke";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = "$(CURRENT_VERSION)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = in.benyell.ReynardIPCSmoke;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1547,6 +1753,15 @@
 			buildConfigurations = (
 				06RNTDBG12F32000000000001 /* Debug */,
 				06RNTREL12F32000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08RNICFG2F34000000000001 /* Build configuration list for PBXNativeTarget "ReynardIPCSmoke" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08RNIDBG2F34000000000001 /* Debug */,
+				08RNIREL2F34000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

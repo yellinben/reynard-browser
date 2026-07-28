@@ -9,7 +9,12 @@ typedef void (^RNRHostActivationHandler)(void);
 @interface RNRCFMessagePortTransport : NSObject <RNRMessageTransport>
 
 - (instancetype)initWithServiceName:(NSString *)serviceName
-                   activationHandler:(RNRHostActivationHandler)activationHandler NS_DESIGNATED_INITIALIZER;
+                   activationHandler:(RNRHostActivationHandler)activationHandler;
+
+- (instancetype)initWithServiceName:(NSString *)serviceName
+                   activationHandler:(RNRHostActivationHandler)activationHandler
+                   diagnosticHandler:(nullable RNRMessageTransportDiagnosticHandler)diagnosticHandler
+    NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 
